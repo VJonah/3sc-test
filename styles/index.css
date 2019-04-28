@@ -32,11 +32,20 @@ button {
     width: 100%;
 }
 
+
 #topNavBar .nav-link {
-    font-size: 1.25rem;
     color: #FFFFFF;
 }
 #topNavBar .nav-link:hover {
+    color: #FFCB05;
+    font-size: 1.25rem;
+}
+
+#bottomNavBar .nav-link {
+    color: #FFFFFF;
+}
+
+#bottomNavBar .nav-link:hover {
     color: #FFCB05;
     font-size: 1.25rem;
 }
