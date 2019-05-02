@@ -7,21 +7,43 @@ button {
     color: #FFFFFF;
 }
 
+.icon {
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding-top: 5%;
+    padding-left: 5%;
+    font-size: 1.5rem;
+    color: white;
+    visibility: hidden;
+}
+
 .square {
     width: 100%;
     height: 0;
     padding-bottom: 100%;
-    background-color: white;
     position: relative;
 }
-.text {
+
+.square-pressed {
+    background-color: #FFCB05;
+}
+
+.square:hover {
+    width: 100%;
+    height: 0;
+    padding-bottom: 100%;
+    position: relative;
+    background-color: white;
+}
+.pokemon-name {
     position: absolute; 
     left: 0; 
     bottom: 0; 
     right: 0; 
     text-align: center; 
-    font-size: .75rem; 
-    color: black; 
+    font-size: 1rem; 
+    color: #FFFFFF; 
 }
 .pokemon-img {
     position: absolute;
@@ -29,8 +51,30 @@ button {
     top: 0;
     bottom: 0;
     right: 0;
-    width: 100%;
+    width: 70%;
+    margin: auto;
 }
+
+.view-img {
+    width: 50%;
+}
+.pokemon-view {
+    cursor: default;
+}
+
+#overlay {
+    position: fixed; 
+    display: none; 
+    width: 100%; 
+    height: 100%; 
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5); 
+    z-index: 2; 
+    cursor: pointer;
+  }
 
 
 #topNavBar .nav-link {
@@ -38,14 +82,14 @@ button {
 }
 #topNavBar .nav-link:hover {
     color: #FFCB05;
-    font-size: 1.25rem;
 }
 
-#bottomNavBar .nav-link {
+#bottomNavBar .btn {
+    background-color: #2C71B8;
     color: #FFFFFF;
 }
 
-#bottomNavBar .nav-link:hover {
-    color: #FFCB05;
-    font-size: 1.25rem;
+#bottomNavBar .btn:hover {
+    background-color: #21386E;
 }
+

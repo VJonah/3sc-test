@@ -6,6 +6,11 @@
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css"  href="styles/index.css" >
         <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+        <script
+        src="https://code.jquery.com/jquery-3.4.0.js"
+        integrity="sha256-DYZMCC8HTC+QDr5QNaIcfR7VSPtcISykd+6eSmBW5qo="
+        crossorigin="anonymous"></script>
+        <script type="text/javascript" src="scripts/app.js"></script>
     </head>
     <body>
         <!-- Top bar to allow for viewing favourites and comparing pokemon -->
@@ -28,210 +33,35 @@
             </div>
         </nav>
 
+        <div id="overlay" class="container-fluid">
+            <div class="row justify-content-center border">
+                <div class="col-12 col-sm-6 bg-info d-flex flex-column align-items-center pokemon-view">
+                    <img class="view-img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png">
+                </div>
+            </div>
+        </div>
+
+
         <!-- Pokemon grid -->
         <section class="container">
             <div class="column">
                 <!-- Basic row to display 4 pokemon responsively -->
                 <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-12 col-sm-6 col-md-3 p-4">
-                            <div class="square">
-                                <img class="pokemon-img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png">
-                                <p class="text">
-                                    Pikachu
-                                </p>
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-3 p-4">
-                            <div class="square">
-                                <img class="pokemon-img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png">
-                                <p class="text">
-                                    Pikachu
-                                </p>
-                            </div>
-                            
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-3 p-4">
-                            <div class="square">
-                                <img class="pokemon-img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png">
-                                <p class="text">
-                                    Pikachu
-                                </p>
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-3 p-4">
-                            <div class="square">
-                                <img class="pokemon-img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png">
-                                <p class="text">
-                                    Pikachu
-                                </p>
-                            </div>
-                        </div>
+                    <div class="row pokemon-grid">
+                        
+                        
                     </div>
                 </div>
-
-                <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-12 col-sm-6 col-md-3 p-4">
-                                <div class="square">
-                                    <img class="pokemon-img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png">
-                                    <p class="text">
-                                        Pikachu
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="col-12 col-sm-6 col-md-3 p-4">
-                                <div class="square">
-                                    <img class="pokemon-img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png">
-                                    <p class="text">
-                                        Pikachu
-                                    </p>
-                                </div>
-                                
-                            </div>
-                            <div class="col-12 col-sm-6 col-md-3 p-4">
-                                <div class="square">
-                                    <img class="pokemon-img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png">
-                                    <p class="text">
-                                        Pikachu
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="col-12 col-sm-6 col-md-3 p-4">
-                                <div class="square">
-                                    <img class="pokemon-img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png">
-                                    <p class="text">
-                                        Pikachu
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-12 col-sm-6 col-md-3 p-4">
-                                <div class="square">
-                                    <img class="pokemon-img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png">
-                                    <p class="text">
-                                        Pikachu
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="col-12 col-sm-6 col-md-3 p-4">
-                                <div class="square">
-                                    <img class="pokemon-img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png">
-                                    <p class="text">
-                                        Pikachu
-                                    </p>
-                                </div>
-                                
-                            </div>
-                            <div class="col-12 col-sm-6 col-md-3 p-4">
-                                <div class="square">
-                                    <img class="pokemon-img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png">
-                                    <p class="text">
-                                        Pikachu
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="col-12 col-sm-6 col-md-3 p-4">
-                                <div class="square">
-                                    <img class="pokemon-img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png">
-                                    <p class="text">
-                                        Pikachu
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-12 col-sm-6 col-md-3 p-4">
-                                <div class="square">
-                                    <img class="pokemon-img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png">
-                                    <p class="text">
-                                        Pikachu
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="col-12 col-sm-6 col-md-3 p-4">
-                                <div class="square">
-                                    <img class="pokemon-img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png">
-                                    <p class="text">
-                                        Pikachu
-                                    </p>
-                                </div>
-                                
-                            </div>
-                            <div class="col-12 col-sm-6 col-md-3 p-4">
-                                <div class="square">
-                                    <img class="pokemon-img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png">
-                                    <p class="text">
-                                        Pikachu
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="col-12 col-sm-6 col-md-3 p-4">
-                                <div class="square">
-                                    <img class="pokemon-img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png">
-                                    <p class="text">
-                                        Pikachu
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-12 col-sm-6 col-md-3 p-4">
-                                <div class="square">
-                                    <img class="pokemon-img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png">
-                                    <p class="text">
-                                        Pikachu
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="col-12 col-sm-6 col-md-3 p-4">
-                                <div class="square">
-                                    <img class="pokemon-img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png">
-                                    <p class="text">
-                                        Pikachu
-                                    </p>
-                                </div>
-                                
-                            </div>
-                            <div class="col-12 col-sm-6 col-md-3 p-4">
-                                <div class="square">
-                                    <img class="pokemon-img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png">
-                                    <p class="text">
-                                        Pikachu
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="col-12 col-sm-6 col-md-3 p-4">
-                                <div class="square">
-                                    <img class="pokemon-img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png">
-                                    <p class="text">
-                                        Pikachu
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-            </div>
         </section>
 
         <!-- Bottom nav bar for pokemon browsing -->
         <section class="container-fluid">
             <div id="bottomNavBar" class="p-3 row">
                 <div class="d-flex col-6">
-                    <a class="nav-link">Previous</a>
+                    <button class="btn">Prev</button>
                 </div> 
                 <div class="d-flex col-6 justify-content-end">
-                    <a class="nav-link">Next</a>
+                    <button class="btn">Next</button>
                 </div>
             </div>
         </section>
