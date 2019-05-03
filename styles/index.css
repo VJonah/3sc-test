@@ -93,3 +93,10 @@ button {
     background-color: #21386E;
 }
 
+#prev-btn {
+    display: none;
+}
+#next-btn {
+    display: block;
+}
+

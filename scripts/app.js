@@ -1,9 +1,9 @@
 var state = {
     browse: {
+        next: null,
+        prev: null,
         pokemons: [],
-        numberOfPokemon: 964,
-        count: 0,
-        step: 20
+        numberOfPokemon: 0,
     },
     favourites: {
 
@@ -12,10 +12,12 @@ var state = {
 
     }
 };
+
 // A function which takes the current loaded pokemons and displays them in the grid
 const displayPokemon = () => {
     const pokemons = state.browse.pokemons;
     const grid = $(".pokemon-grid");
+    grid.html("");
     for(let i = 0; i < pokemons.length; i++){
         grid.append (`
         <div class="col-12 col-sm-6 col-md-3 p-4 pokemon">
@@ -28,7 +30,22 @@ const displayPokemon = () => {
         </div>`
         )
     }
-};
+    toggleButtons();
+}
+
+//A function to toggle the navigation buttons depending on whether there are more pokemon to fetch
+const toggleButtons = () => {
+    const { next, prev } = state.browse;
+    if(next !== null && prev !== null) {
+        $("#prev-btn").css("display", "block");
+        $("#next-btn").css("display", "block");
+    } else if(next === null) {
+        $("prev-btn").css("display", "block"); 
+    } else if(prev === null) {
+        $("#next-btn").css("display", "block");
+    }
+}
+
 
 // A function dedicated to take an array of promises and return the requestJSON objects from the request
 const extractPokemonFromRequest = (requests) => {
@@ -39,33 +56,37 @@ const extractPokemonFromRequest = (requests) => {
     return pokemonObjects;
 };
 
-
-
-//Function fetches the next set of pokemon and adds them to the state
-const loadPokemon = () => {
-    const requests = [];
-    let pokemons = [];
-    let count = state.browse.count;
-    const { numberOfPokemon, step} = state.browse;
-    let numberOfPokemonsToFetch = step;
-    if(count + step > numberOfPokemon) {
-        numberOfPokemonsToFetch = numberOfPokemon - count;
-        count = numberOfPokemon;
-    }
-    for(let i = 1; i < numberOfPokemonsToFetch + 1; i++) {
-        requests.push($.getJSON(`https://pokeapi.co/api/v2/pokemon/${i}`));
-    };
-    $.when(...requests).done(() => {
-        pokemons = extractPokemonFromRequest(requests);
-        state.browse = {...state.browse, count: count + numberOfPokemonsToFetch, pokemons: [...pokemons] };
-        displayPokemon();
-    });    
+//A function fetches all the pokemon on a given page
+const loadPokemon = (direction) => {
+    $.getJSON(direction, (data) => {
+        state.browse.prev = data.previous;
+        state.browse.next = data.next;
+        state.browse.numberOfPokemon = data.count;
+        const results = data.results;
+        const requests = [];
+        for(let i = 0; i < results.length; i++) {
+            requests.push($.getJSON(results[i].url));
+        }
+        $.when(...requests).done(() => {
+            pokemons = extractPokemonFromRequest(requests);
+            state.browse = { ...state.browse, pokemons: [...pokemons] };
+            displayPokemon();
+        });
+    });
 };
 
 
+$(document).ready(() => {
+    $("#prev-btn").on("click", () => {
+        loadPokemon(state.browse.prev);
+        $("#prev-btn").css("display", "none");
+    });
+    $("#next-btn").on("click", () => {
+        loadPokemon(state.browse.next);
+        $("#next-btn").css("display", "none");
+    });
+});
 
 
-(function main() {
-    loadPokemon();
-}());
+loadPokemon("https://pokeapi.co/api/v2/pokemon");
 
