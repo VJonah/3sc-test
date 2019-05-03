@@ -1,4 +1,4 @@
-var state = {
+const state = {
     browse: {
         next: null,
         prev: null,
@@ -10,6 +10,9 @@ var state = {
     },
     compare: {
 
+    },
+    view: {
+        pokemon: null,
     }
 };
 
@@ -20,8 +23,8 @@ const displayPokemon = () => {
     grid.html("");
     for(let i = 0; i < pokemons.length; i++){
         grid.append (`
-        <div class="col-12 col-sm-6 col-md-3 p-4 pokemon">
-            <div class="square">
+        <div class="col-12 col-sm-6 col-md-3 p-4">
+            <div class="square" meta="${pokemons[i].name}">
                 <img class="pokemon-img" src="${pokemons[i].sprites.front_default}">
                 <p class="pokemon-name">
                     ${pokemons[i].name}
@@ -30,7 +33,54 @@ const displayPokemon = () => {
         </div>`
         )
     }
+    addPokemonEvents();
     toggleButtons();
+}
+
+//A function to add the on click events to the dynamically created pokemon elements
+const addPokemonEvents = () => {
+    $(".square").on("click", (event) => {
+        $("#viewer").css("display", "block");
+        $(".pokemon-grid").css("position", "static");
+        clickedPokemon = event.delegateTarget.attributes.meta.nodeValue;
+        const pokemons = state.browse.pokemons;
+        state.view.pokemon = pokemons.filter((p) => {
+            if(p.name === clickedPokemon){
+                return p;
+            }
+        })[0];
+        displayPokemonData();
+    });
+}
+
+//A function to take pokemon's fetched data and display it in the lightbox.
+const displayPokemonData = () => {
+    const pokemon = state.view.pokemon;
+    const name = pokemon.name[0].toUpperCase() + pokemon.name.substring(1);
+    $(".view-img").attr("src", pokemon.sprites.front_default)
+    $("#name").html(name);
+    $("#height").html(pokemon.height);
+    $("#weight ").html(pokemon.weight);
+    $("#stats").html("");
+    for(let i = 0; i < pokemon.stats.length; i++) {
+        const name = pokemon.stats[i].stat.name;
+        const stat = pokemon.stats[i].base_stat;
+        $("#stats").append(`
+            <tr>
+                <td class="pokemon-stats">${name}</td>
+                <td class="pokemon-stats-base">${stat}</td>
+            </tr>
+        `);
+    }
+    $("#types").html("");
+    for(let i = 0; i < pokemon.types.length; i++) {
+        const type = pokemon.types[i].type.name;
+        $("#types").append(`
+            <tr>
+                <td class="pokemon-types">${type}</td>
+            </tr>
+        `);
+    };
 }
 
 //A function to toggle the navigation buttons depending on whether there are more pokemon to fetch
@@ -85,6 +135,10 @@ $(document).ready(() => {
         loadPokemon(state.browse.next);
         $("#next-btn").css("display", "none");
     });
+    $("#back-btn").on("click", () => {
+        $("#viewer").css("display", "none");
+        $(".pokemon-grid").css("position", "relative");
+    })
 });
 
 

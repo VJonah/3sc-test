@@ -6,6 +6,11 @@ button {
     background-color: #2C71B8;
     color: #FFFFFF;
 }
+table {
+    width: 100%;
+    margin: 5%;
+}
+
 
 .icon {
     position: absolute;
@@ -55,14 +60,33 @@ button {
     margin: auto;
 }
 
+.pokemon-stats {
+    text-align: start;
+}
+
+.pokemon-types {
+    text-align: center;
+}
+
+.pokemon-stats-base {
+    text-align: end;
+}
+
 .view-img {
     width: 50%;
 }
 .pokemon-view {
-    cursor: default;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    position: static;
 }
 
-#overlay {
+.pokemon-data {
+    margin-top: 5%;
+}
+
+
+#viewer {
     position: fixed; 
     display: none; 
     width: 100%; 
@@ -73,9 +97,16 @@ button {
     bottom: 0;
     background-color: rgba(0,0,0,0.5); 
     z-index: 2; 
-    cursor: pointer;
-  }
+    overflow-y: scroll;
+}
 
+
+
+#back-btn {
+    padding-left: 15px;
+    width: 100%;
+    padding-top: 15px;
+}
 
 #topNavBar .nav-link {
     color: #FFFFFF;
@@ -97,6 +128,6 @@ button {
     display: none;
 }
 #next-btn {
-    display: block;
+    display: none;
 }
 

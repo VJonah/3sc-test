@@ -33,10 +33,35 @@
             </div>
         </nav>
 
-        <div id="overlay" class="container-fluid">
-            <div class="row justify-content-center border">
-                <div class="col-12 col-sm-6 bg-info d-flex flex-column align-items-center pokemon-view">
+        <!-- HTML to view a pokemon's stats -->
+        <div class="container-fluid" id="viewer">
+            <div class="row justify-content-center">
+                <div class="col-12 col-sm-6 bg-white d-flex flex-column align-items-center pokemon-view">
+                    <div id="back-btn">
+                        <button class="btn">Back</button>
+                    </div>
                     <img class="view-img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png">
+                    <h1 id="name"></h1>
+                    <h3> 
+                        Height 
+                    </h3>
+                    <p id="height"></p>
+                    <h3>
+                        Weight
+                    </h3> 
+                    <p id="weight"></p>
+                    <h3>
+                        Stats
+                    </h3>
+                    <table id="stats">
+
+                    </table>
+                    <h3> 
+                        Types 
+                    </h3>
+                    <table id="types">
+                        
+                    </table>
                 </div>
             </div>
         </div>
@@ -48,8 +73,7 @@
                 <!-- Basic row to display 4 pokemon responsively -->
                 <div class="container-fluid">
                     <div class="row pokemon-grid">
-                        
-                        
+                        <!-- where pokemons will fill the grid -->
                     </div>
                 </div>
         </section>
