@@ -85,6 +85,19 @@ table {
     margin-top: 5%;
 }
 
+.favourite-icon {
+    font-size: 2rem;
+    color: black;
+    margin-top: 2.5%;
+    margin-bottom: 10%;
+}
+
+.icon-pressed {
+    font-size: 2rem;
+    color: red;
+    margin-top: 2.5%;
+    margin-bottom: 10%;
+}
 
 #viewer {
     position: fixed; 
@@ -100,13 +113,12 @@ table {
     overflow-y: scroll;
 }
 
-
-
-#back-btn {
+#buttons {
     padding-left: 15px;
     width: 100%;
     padding-top: 15px;
 }
+
 
 #topNavBar .nav-link {
     color: #FFFFFF;

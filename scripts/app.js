@@ -6,7 +6,7 @@ const state = {
         numberOfPokemon: 0,
     },
     favourites: {
-
+        pokemons: []
     },
     compare: {
 
@@ -15,6 +15,55 @@ const state = {
         pokemon: null,
     }
 };
+
+
+//A function fetches all the pokemon on a given page
+const loadPokemon = (direction) => {
+    $.getJSON(direction, (data) => {
+        state.browse = {...state.browse, prev: data.previous, next: data.next, numberOfPokemon: data.count };
+        const results = data.results;
+        const requests = [];
+        for(let i = 0; i < results.length; i++) {
+            requests.push($.getJSON(results[i].url));
+        }
+        $.when(...requests).done(() => {
+            pokemons = extractPokemonFromRequest(requests);
+            state.browse = { ...state.browse, pokemons: [...pokemons] };
+            displayPokemon();
+        });
+    });
+};
+
+// A function dedicated to take an array of promises and return the requestJSON objects from the request
+const extractPokemonFromRequest = (requests) => {
+    const pokemonObjects = [];
+    for(let i = 0; i < requests.length; i++) {
+        pokemonObjects.push(requests[i].responseJSON);
+    }
+    return pokemonObjects;
+};
+
+// A function to check if an array of pokemon objects contains a pokemon
+const includesPokemon = (array, pokemon) => {
+    const result = array.find((element) => {
+        if(element.name === pokemon.name) {
+            return element;
+        };
+    });
+    if (typeof result === 'undefined') {
+        return false;       
+    } else {
+        return true;
+    }
+};
+// A function to get the index of a pokemon object in an array
+const pokemonIndex = (array, pokemon) => {
+    return array.find((element, index) => {
+        if(element.name === pokemon.name) {
+            return index;
+        }
+    });
+}
 
 // A function which takes the current loaded pokemons and displays them in the grid
 const displayPokemon = () => {
@@ -41,16 +90,33 @@ const displayPokemon = () => {
 const addPokemonEvents = () => {
     $(".square").on("click", (event) => {
         $("#viewer").css("display", "block");
-        $(".pokemon-grid").css("position", "static");
+        $("body").css("position", "fixed");
         clickedPokemon = event.delegateTarget.attributes.meta.nodeValue;
         const pokemons = state.browse.pokemons;
+        const favouritedPokemons = state.favourites.pokemons;
         state.view.pokemon = pokemons.filter((p) => {
             if(p.name === clickedPokemon){
                 return p;
             }
         })[0];
+        if(includesPokemon(favouritedPokemons, state.view.pokemon)) {
+            $(".favourite-icon").addClass("icon-pressed");
+        }
         displayPokemonData();
     });
+}
+
+//A function to toggle the navigation buttons depending on whether there are more pokemon to fetch
+const toggleButtons = () => {
+    const { next, prev } = state.browse;
+    if(next !== null && prev !== null) {
+        $("#prev-btn").css("display", "block");
+        $("#next-btn").css("display", "block");
+    } else if(next === null) {
+        $("prev-btn").css("display", "block"); 
+    } else if(prev === null) {
+        $("#next-btn").css("display", "block");
+    }
 }
 
 //A function to take pokemon's fetched data and display it in the lightbox.
@@ -83,62 +149,34 @@ const displayPokemonData = () => {
     };
 }
 
-//A function to toggle the navigation buttons depending on whether there are more pokemon to fetch
-const toggleButtons = () => {
-    const { next, prev } = state.browse;
-    if(next !== null && prev !== null) {
-        $("#prev-btn").css("display", "block");
-        $("#next-btn").css("display", "block");
-    } else if(next === null) {
-        $("prev-btn").css("display", "block"); 
-    } else if(prev === null) {
-        $("#next-btn").css("display", "block");
-    }
-}
-
-
-// A function dedicated to take an array of promises and return the requestJSON objects from the request
-const extractPokemonFromRequest = (requests) => {
-    const pokemonObjects = [];
-    for(let i = 0; i < requests.length; i++) {
-        pokemonObjects.push(requests[i].responseJSON);
-    }
-    return pokemonObjects;
-};
-
-//A function fetches all the pokemon on a given page
-const loadPokemon = (direction) => {
-    $.getJSON(direction, (data) => {
-        state.browse.prev = data.previous;
-        state.browse.next = data.next;
-        state.browse.numberOfPokemon = data.count;
-        const results = data.results;
-        const requests = [];
-        for(let i = 0; i < results.length; i++) {
-            requests.push($.getJSON(results[i].url));
-        }
-        $.when(...requests).done(() => {
-            pokemons = extractPokemonFromRequest(requests);
-            state.browse = { ...state.browse, pokemons: [...pokemons] };
-            displayPokemon();
-        });
-    });
-};
-
-
 $(document).ready(() => {
     $("#prev-btn").on("click", () => {
         loadPokemon(state.browse.prev);
         $("#prev-btn").css("display", "none");
+        $("#next-btn").css("display", "none");
     });
     $("#next-btn").on("click", () => {
         loadPokemon(state.browse.next);
         $("#next-btn").css("display", "none");
+        $("#prev-btn").css("display", "none");
     });
     $("#back-btn").on("click", () => {
         $("#viewer").css("display", "none");
-        $(".pokemon-grid").css("position", "relative");
-    })
+        $(".favourite-icon").removeClass("icon-pressed");
+        $("body").css("position", "relative");
+    });
+    $(".favourite-icon").on("click", () => {
+        const pokemons = state.favourites.pokemons;
+        const pokemon = state.view.pokemon;
+        if(includesPokemon(pokemons, pokemon)){
+            pokemons.splice(pokemonIndex(pokemons,pokemon), 1);
+            console.log(pokemons);
+        } else {
+            pokemons.push(state.view.pokemon);
+        }
+        state.favourites = { ...state.favourites, pokemons: pokemons};
+        $(".favourite-icon").toggleClass("icon-pressed");
+    });
 });
 
 
