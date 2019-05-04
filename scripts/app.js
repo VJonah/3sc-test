@@ -6,7 +6,8 @@ const state = {
         numberOfPokemon: 0,
     },
     favourites: {
-        pokemons: []
+        pokemons: [],
+        viewFavourites: false
     },
     compare: {
 
@@ -58,16 +59,15 @@ const includesPokemon = (array, pokemon) => {
 };
 // A function to get the index of a pokemon object in an array
 const pokemonIndex = (array, pokemon) => {
-    return array.find((element, index) => {
-        if(element.name === pokemon.name) {
-            return index;
-        }
-    });
+    return array.findIndex((element) => element.name === pokemon.name);
 }
 
 // A function which takes the current loaded pokemons and displays them in the grid
-const displayPokemon = () => {
-    const pokemons = state.browse.pokemons;
+const displayPokemon = (pokemons) => {
+    if (typeof pokemons === 'undefined') {
+        pokemons = state.browse.pokemons;
+        toggleButtons();
+    }
     const grid = $(".pokemon-grid");
     grid.html("");
     for(let i = 0; i < pokemons.length; i++){
@@ -83,7 +83,6 @@ const displayPokemon = () => {
         )
     }
     addPokemonEvents();
-    toggleButtons();
 }
 
 //A function to add the on click events to the dynamically created pokemon elements
@@ -169,16 +168,31 @@ $(document).ready(() => {
         const pokemons = state.favourites.pokemons;
         const pokemon = state.view.pokemon;
         if(includesPokemon(pokemons, pokemon)){
+            console.log(pokemonIndex(pokemons,pokemon));
             pokemons.splice(pokemonIndex(pokemons,pokemon), 1);
-            console.log(pokemons);
         } else {
             pokemons.push(state.view.pokemon);
         }
+        console.log(pokemons);
         state.favourites = { ...state.favourites, pokemons: pokemons};
         $(".favourite-icon").toggleClass("icon-pressed");
+        if(state.favourites.viewFavourites) {
+            displayPokemon(pokemons);
+        }
+    });
+    $("#logo").on("click", () => {
+        displayPokemon();
+        state.favourites.viewFavourites = false;
+    });
+    $("#favourites").on("click", () => {
+        state.favourites.viewFavourites = true;
+        $('#prev-btn').css("display", "none");
+        $('#next-btn').css("display", "none");
+        const pokemons = state.favourites.pokemons;
+        displayPokemon(pokemons);
+
     });
 });
 
 
 loadPokemon("https://pokeapi.co/api/v2/pokemon");
-

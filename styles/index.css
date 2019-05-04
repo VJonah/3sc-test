@@ -125,6 +125,7 @@ table {
 }
 #topNavBar .nav-link:hover {
     color: #FFCB05;
+    cursor: pointer; 
 }
 
 #bottomNavBar .btn {
@@ -142,4 +143,6 @@ table {
 #next-btn {
     display: none;
 }
-
+#logo {
+    cursor: pointer;
+}
