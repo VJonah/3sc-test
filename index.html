@@ -24,10 +24,10 @@
             <div class="collapse navbar-collapse col-10" id="topNavLinks">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link links" id="favourites">Favourites</a>
+                        <a class="nav-link links"  id="favourites">Favourites</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="compare">Compare</a>
+                        <a class="nav-link"  id="compare">Compare</a>
                     </li>
                 </ul>
             </div>
@@ -37,9 +37,42 @@
         <div class="container-fluid" id="viewer">
             <div class="row justify-content-center">
                 <div class="col-12 col-sm-6 bg-white d-flex flex-column align-items-center pokemon-view">
-                    <div id="buttons">
-                        <button id="back-btn" class="btn">Back</button>
+                    <div class="buttons">
+                        <button class="btn back-btn">Back</button>
                     </div>
+                    <img class="view-img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png">
+                    <h1 id="name"></h1>
+                    <i class="fas fa-heart favourite-icon"></i>
+                    <h3> 
+                        Height 
+                    </h3>
+                    <p id="height"></p>
+                    <h3>
+                        Weight
+                    </h3> 
+                    <p id="weight"></p>
+                    <h3>
+                        Stats
+                    </h3>
+                    <table id="stats">
+
+                    </table>
+                    <h3> 
+                        Types 
+                    </h3>
+                    <table id="types">
+
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid" id="comparer">
+            <div class="buttons">
+                <button class="btn back-btn">Back</button>
+            </div>
+            <div class="row flex-row flex-nowrap justify-content-around">
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3 bg-white d-flex flex-column align-items-center pokemon-view">
                     <img class="view-img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png">
                     <h1 id="name"></h1>
                     <i class="fas fa-heart favourite-icon"></i>

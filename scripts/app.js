@@ -10,7 +10,8 @@ const state = {
         viewFavourites: false
     },
     compare: {
-
+        pokemons: [],
+        comparing: false
     },
     view: {
         pokemon: null,
@@ -87,21 +88,35 @@ const displayPokemon = (pokemons) => {
 
 //A function to add the on click events to the dynamically created pokemon elements
 const addPokemonEvents = () => {
-    $(".square").on("click", (event) => {
-        $("#viewer").css("display", "block");
-        $("body").css("position", "fixed");
+    $(".square").on("click", function(event) {
         clickedPokemon = event.delegateTarget.attributes.meta.nodeValue;
         const pokemons = state.browse.pokemons;
         const favouritedPokemons = state.favourites.pokemons;
-        state.view.pokemon = pokemons.filter((p) => {
+        $(this).toggleClass("square-pressed");
+        const clickedPokemonData = pokemons.filter((p) => {
             if(p.name === clickedPokemon){
                 return p;
             }
         })[0];
-        if(includesPokemon(favouritedPokemons, state.view.pokemon)) {
-            $(".favourite-icon").addClass("icon-pressed");
+        const comparing = state.compare.comparing;
+        if(comparing) {
+            console.log("click");
+            const comparedPokemons = state.compare.pokemons;
+            if(includesPokemon(comparedPokemons, clickedPokemonData)) {
+                comparedPokemons.splice(pokemonIndex(comparedPokemons,clickedPokemonData), 1);
+            } else {
+                comparedPokemons.push(clickedPokemonData);
+            }
+            state.compare = { ...state.compare, pokemons: comparedPokemons };
+        } else {
+            state.view = { pokemon: clickedPokemonData};
+            $("body").css("position", "fixed");
+            $("#viewer").css("display", "block");
+            displayPokemonData();
+            if(includesPokemon(favouritedPokemons, state.view.pokemon)) {
+                $(".favourite-icon").addClass("icon-pressed");
+            }
         }
-        displayPokemonData();
     });
 }
 
@@ -118,7 +133,7 @@ const toggleButtons = () => {
     }
 }
 
-//A function to take pokemon's fetched data and display it in the lightbox.
+//A function to take pokemon's fetched data and display it in a lightbox.
 const displayPokemonData = () => {
     const pokemon = state.view.pokemon;
     const name = pokemon.name[0].toUpperCase() + pokemon.name.substring(1);
@@ -159,38 +174,47 @@ $(document).ready(() => {
         $("#next-btn").css("display", "none");
         $("#prev-btn").css("display", "none");
     });
-    $("#back-btn").on("click", () => {
+    $(".back-btn").on("click", () => {
         $("#viewer").css("display", "none");
+        $("#comparer").css("display", "none");
         $(".favourite-icon").removeClass("icon-pressed");
         $("body").css("position", "relative");
+        $(".square").removeClass("square-pressed");
     });
-    $(".favourite-icon").on("click", () => {
+    $(".favourite-icon").on("click", function() {
         const pokemons = state.favourites.pokemons;
         const pokemon = state.view.pokemon;
         if(includesPokemon(pokemons, pokemon)){
-            console.log(pokemonIndex(pokemons,pokemon));
             pokemons.splice(pokemonIndex(pokemons,pokemon), 1);
         } else {
             pokemons.push(state.view.pokemon);
         }
-        console.log(pokemons);
         state.favourites = { ...state.favourites, pokemons: pokemons};
-        $(".favourite-icon").toggleClass("icon-pressed");
+        $(this).toggleClass("icon-pressed");
         if(state.favourites.viewFavourites) {
             displayPokemon(pokemons);
         }
     });
     $("#logo").on("click", () => {
+        state.compare = { pokemons: [], comparing: false };
+        $('#compare').removeClass("compare-pressed");
         displayPokemon();
         state.favourites.viewFavourites = false;
     });
     $("#favourites").on("click", () => {
-        state.favourites.viewFavourites = true;
+        state.compare = { pokemons: [], comparing: false };
+        state.favourites = {...state.favourites, viewFavourites: true};
         $('#prev-btn').css("display", "none");
         $('#next-btn').css("display", "none");
+        $('#compare').removeClass("compare-pressed");
         const pokemons = state.favourites.pokemons;
         displayPokemon(pokemons);
 
+    });
+    $("#compare").on("click", function() {
+        state.compare = { pokemons: [], comparing: true};
+        $(".square").removeClass("square-pressed");
+        $(this).toggleClass("compare-pressed");
     });
 });
 

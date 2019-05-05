@@ -11,18 +11,6 @@ table {
     margin: 5%;
 }
 
-
-.icon {
-    position: absolute;
-    left: 0;
-    top: 0;
-    padding-top: 5%;
-    padding-left: 5%;
-    font-size: 1.5rem;
-    color: white;
-    visibility: hidden;
-}
-
 .square {
     width: 100%;
     height: 0;
@@ -31,7 +19,7 @@ table {
 }
 
 .square-pressed {
-    background-color: #FFCB05;
+    background-color: #FFFFFF;
 }
 
 .square:hover {
@@ -113,12 +101,27 @@ table {
     overflow-y: scroll;
 }
 
-#buttons {
+#comparer {
+    position: fixed; 
+    width: 100%; 
+    height: 100%; 
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5); 
+    z-index: 2; 
+    overflow-x: scroll;
+}
+
+.buttons {
     padding-left: 15px;
     width: 100%;
     padding-top: 15px;
 }
-
+.compare-pressed {
+    font-weight: bold;
+}
 
 #topNavBar .nav-link {
     color: #FFFFFF;
