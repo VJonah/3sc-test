@@ -63,7 +63,7 @@ table {
 .view-img {
     width: 50%;
 }
-.pokemon-view {
+.pokemon-view, .pokemon-compare {
     margin-top: 5%;
     margin-bottom: 5%;
     position: static;
@@ -87,6 +87,24 @@ table {
     margin-bottom: 10%;
 }
 
+.buttons {
+    padding-left: 15px;
+    width: 100%;
+    padding-top: 15px;
+}
+.compare-pressed {
+    font-weight: bold;
+}
+
+
+#topNavBar .nav-link {
+    color: #FFFFFF;
+}
+#topNavBar .nav-link:hover {
+    color: #FFCB05;
+    cursor: pointer; 
+}
+
 #viewer {
     position: fixed; 
     display: none; 
@@ -103,6 +121,7 @@ table {
 
 #comparer {
     position: fixed; 
+    display: none;
     width: 100%; 
     height: 100%; 
     top: 0;
@@ -112,23 +131,6 @@ table {
     background-color: rgba(0,0,0,0.5); 
     z-index: 2; 
     overflow-x: scroll;
-}
-
-.buttons {
-    padding-left: 15px;
-    width: 100%;
-    padding-top: 15px;
-}
-.compare-pressed {
-    font-weight: bold;
-}
-
-#topNavBar .nav-link {
-    color: #FFFFFF;
-}
-#topNavBar .nav-link:hover {
-    color: #FFCB05;
-    cursor: pointer; 
 }
 
 #bottomNavBar .btn {
@@ -148,4 +150,16 @@ table {
 }
 #logo {
     cursor: pointer;
+}
+
+#view-compare {
+    color: #ffffff;
+    display: none;
+    text-align: center;
+}
+#view-compare:hover {
+    color: #FFCB05;
+    cursor: pointer;
+    text-align: center;
+
 }

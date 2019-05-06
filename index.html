@@ -67,12 +67,13 @@
             </div>
         </div>
 
+        <!-- HTML to side scroll all selected pokemons in order to compare stats -->
         <div class="container-fluid" id="comparer">
             <div class="buttons">
                 <button class="btn back-btn">Back</button>
             </div>
-            <div class="row flex-row flex-nowrap justify-content-around">
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3 bg-white d-flex flex-column align-items-center pokemon-view">
+            <div class="row flex-row flex-nowrap justify-content-between" id="comparer-content">
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3 bg-white d-flex flex-column align-items-center pokemon-compare">
                     <img class="view-img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png">
                     <h1 id="name"></h1>
                     <i class="fas fa-heart favourite-icon"></i>
@@ -100,6 +101,10 @@
             </div>
         </div>
 
+        <!-- compare text to click in order to view pokemon selected for comparison -->
+        <div class=" d-flex flex-row justify-content-center w-100">
+            <h4 id="view-compare">Compare Selected Pokemons</h4>
+        </div>
 
         <!-- Pokemon grid -->
         <section class="container">
